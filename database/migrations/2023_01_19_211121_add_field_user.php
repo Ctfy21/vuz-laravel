@@ -13,8 +13,8 @@ class AddFieldUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-            $table->foreignId('role_id')->add();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('role_id')->change();
         });
     }
 
@@ -25,6 +25,6 @@ class AddFieldUser extends Migration
      */
     public function down()
     {
-        //
+
     }
 }
