@@ -13,11 +13,6 @@ class MainController extends Controller
         return view('main/main', ['articles' => $articles]);
     }
 
-    public function view($articleId){
-        $article = Article::with('comments')->findOrFail($articleId);
-        return view('main/gallery', ['article' => $article]);
-    }
-
     public function storeComment($articleId, Request $request){
         try{
             $validated = $request->validate([

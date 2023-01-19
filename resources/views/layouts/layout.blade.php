@@ -42,6 +42,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact">Контакты</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/article/create">Создать статью</a>
+        </li>
       </ul>
     </div>
     <div class="navbar-nav d-flex justify-content-end">

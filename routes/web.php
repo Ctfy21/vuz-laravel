@@ -3,10 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
 
+
+Route::group(['prefix'=>'/article'], function(){
+    Route::get('/create',[ArticleController::class, 'create']);
+    Route::post('/store',[ArticleController::class, 'store']);
+    Route::get('/{articleId}', [ArticleController::class, 'view']);
+});
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('/article/{articleId}', [MainController::class, 'view']);
 Route::post('/articles/{articleId}/comments', [MainController::class, 'storeComment']);
 
 Route::get('/auth/registration', [AuthController::class, 'registration']);
