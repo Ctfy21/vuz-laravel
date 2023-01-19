@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(){
-        $articles = Article::all();
+        $articles = Article::paginate(5);
         return view('main/main', ['articles' => $articles]);
     }
 
@@ -38,7 +38,7 @@ class MainController extends Controller
 
         }
         catch(Exception $ex){
-            dd($ex->getMessage());
+            return redirect()->back()->withErrors($ex->validator);
         }
     }
 }

@@ -48,8 +48,8 @@
         @guest
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="/auth/registr">Регистрация</a>
-          </li>       
+            <a class="nav-link" href="/auth/registration">Регистрация</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/auth/login">Вход</a>
           </li>
@@ -72,7 +72,7 @@
             <a class="nav-link" href="/auth/logout">Выход</a>
           </li>
         @endauth
-    <!-- 
+    <!--
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li> -->
@@ -83,9 +83,9 @@
 </nav>
  <main>
  <div id="app">
-    <App />
+    <App/>
  </div>
- 
+
   <div class="container">
     @yield('content')
   </div>
@@ -94,7 +94,7 @@
  <footer class="bg-light text-center text-lg-start">
 
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    Володина О.В. Группа №19А-111
+    Килеев Сергей Игоревич 211-321
   </div>
 </footer>
 </body>

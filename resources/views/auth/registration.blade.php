@@ -7,11 +7,11 @@
         <li>
           {{$error}}
         <li>
-      @endforeach 
+      @endforeach
   </ul>
 </div>
 @endif
-<form action="/signin" method="post">
+<form action="/auth/createAcc" method="post">
     @csrf
   <div class="mb-3">
     <label for="exampleInputName1" class="form-label">Name</label>

@@ -25,6 +25,9 @@
         </label>
     </div>
     <input type="submit" value="Go">
+    @foreach ($errors->all() as $error)
+        <span style="color: red">{{$error}}</span>
+    @endforeach
 </form>
 
 
