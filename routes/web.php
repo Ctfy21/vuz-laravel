@@ -6,7 +6,8 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('/gallery/{full}', [MainController::class, 'view']);
+Route::get('/article/{articleId}', [MainController::class, 'view']);
+Route::post('/articles/{articleId}/comments', [MainController::class, 'storeComment']);
 
 Route::get('/registration', [AuthController::class, 'create']);
 Route::post('/signin', [AuthController::class, 'registration']);

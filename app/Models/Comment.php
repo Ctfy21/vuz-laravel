@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['author', 'text'];
+
     public function article(){
         return $this->belongsTo(Article::class);
     }

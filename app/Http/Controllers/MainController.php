@@ -3,16 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
     public function index(){
-        $articles = Article::all()->toArray();
+        $articles = Article::all();
         return view('main/main', ['articles' => $articles]);
     }
 
-    public function view($full){
-        return view('main/gallery', ['full' => $full]);
+    public function view($articleId){
+        $article = Article::with('comments')->findOrFail($articleId);
+        return view('main/gallery', ['article' => $article]);
+    }
+
+    public function storeComment($articleId, Request $request){
+        try{
+            $validated = $request->validate([
+                'author' => 'required',
+                'text' => 'required'
+            ]);
+
+            $article = Article::findOrFail($articleId);
+
+            $newComment = new Comment();
+            $newComment->fill($validated);
+            $newComment->article()->associate($article);
+
+
+            if($newComment->save()){
+                return redirect()->back();
+            }
+
+        }
+        catch(Exception $ex){
+            dd($ex->getMessage());
+        }
     }
 }
