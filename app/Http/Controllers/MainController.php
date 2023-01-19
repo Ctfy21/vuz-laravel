@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
     public function index(){
-        $articles = json_decode(file_get_contents(public_path().'/articles.json'), true);
+        $articles = Article::all()->toArray();
         return view('main/main', ['articles' => $articles]);
     }
 
