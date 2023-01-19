@@ -6,18 +6,26 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
 
 
-Route::group(['prefix'=>'/article'], function(){
+Route::group(['prefix'=>'/article', 'middleware'=>'auth:sanctum'], function(){
     Route::get('/create',[ArticleController::class, 'create']);
     Route::post('/store',[ArticleController::class, 'store']);
-    Route::get('/{articleId}', [ArticleController::class, 'view']);
+    Route::get('/{articleId}', [ArticleController::class, 'view'])->name('show');
+    Route::put('/{articleId}', [ArticleController::class, 'update']);
+    Route::get('/{articleId}/delete', [ArticleController::class, 'destroy']);
+    Route::get('/{articleId}/edit', [ArticleController::class, 'edit']);
 });
 
 Route::get('/', [MainController::class, 'index']);
 Route::post('/articles/{articleId}/comments', [MainController::class, 'storeComment']);
 
-Route::get('/auth/registration', [AuthController::class, 'registration']);
-Route::post('/auth/createAcc', [AuthController::class, 'createAccount']);
 
+Route::group(['prefix'=>'/auth'], function(){
+    Route::get('/registration', [AuthController::class, 'registration']);
+    Route::post('/registration', [AuthController::class, 'store']);
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'getLogin']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+});
 
 
 Route::get('/about', function () {
