@@ -18,6 +18,9 @@ Route::group(['prefix'=>'/article', 'middleware'=>'auth:sanctum'], function(){
 
 Route::get('/', [MainController::class, 'index']);
 
+Route::get('/comment/{comment}/accept', [CommentController::class, 'accept']);
+Route::get('/comment/{comment}/reject', [CommentController::class, 'reject']);
+
 Route::resource('comment', CommentController::class);
 
 

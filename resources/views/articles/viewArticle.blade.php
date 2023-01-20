@@ -10,6 +10,15 @@
 
 
         <h3 class="text-center">Комментарии</h3>
+        @isset($_GET['result'])
+            @if ($_GET['result'])
+                <div class="alert alert-primary">
+                    Ваш комментарий ожидает модерации
+                </div>
+            @endif
+        @endisset
+
+
         @foreach($comments as $comment)
         <form action="/comment/{{$comment->id}}" method="post">
         @csrf
@@ -17,10 +26,10 @@
         <div class="card-body">
           <h5 class="card-title">{{$comment->author}}, ({{$comment->created_at}})</h5>
           <p class="card-text">{{$comment->text}}</p>
-          {{-- @can('update-comment', $comment) --}}
-          <a href="/comment/{{$comment->id}}/edit" class="btn btn-secondary">Редактировать</a>
-          <button type="submit" class="btn btn-secondary">Удалить</button>
-          {{-- @endcan --}}
+          @can('update-comment', $comment)
+            <a href="/comment/{{$comment->id}}/edit" class="btn btn-secondary">Редактировать</a>
+            <button type="submit" class="btn btn-secondary">Удалить</button>
+          @endcan
         </div>
         </form>
         @endforeach

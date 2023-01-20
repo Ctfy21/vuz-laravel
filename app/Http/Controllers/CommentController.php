@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
 use App\Jobs\VeryLongJob;
 
 class CommentController extends Controller
@@ -20,8 +18,24 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::where('accept', null)->latest()->paginate(10);
+        return view('comment/index', ['comments' => $comments]);
     }
+
+    public function accept(Comment $comment)
+    {
+        $comment->accept = 1;
+        $comment->save();
+        return redirect()->back();
+    }
+
+    public function reject(Comment $comment)
+    {
+        $comment->accept = 0;
+        $comment->save();
+        return redirect()->back();
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,10 +63,14 @@ class CommentController extends Controller
         $comment->author = request('author');
         $comment->text = request('text');
         $comment->article()->associate(request('id'));
-        //$comment->user()->associate(Auth::id());
-        $comment->save();
+        $comment->user()->associate(auth()->user());
+        $result = $comment->save();
+        $article = Article::where('id', $comment->article_id)->first();
+        if($request){
+            VeryLongJob::dispatch($article, $comment);
+        }
         //VeryLongJob::dispatch($article);
-        return redirect()->route('show', ['articleId'=>request('id')]);
+        return redirect()->route('show', ['articleId'=>request('id'), 'result'=>$result]);
     }
 
     /**
@@ -75,7 +93,7 @@ class CommentController extends Controller
     public function edit($id)
     {
         $comment = Comment::findOrFail($id);
-        //Gate::authorize('update-comment', $comment);
+        Gate::authorize('update-comment', $comment);
         return view('comment/edit', ['comment'=> $comment]);
     }
 
@@ -93,6 +111,7 @@ class CommentController extends Controller
             'text' => 'required'
         ]);
         $comment = Comment::findOrFail($id);
+        Gate::authorize('update-comment', $comment);
         $comment->author = request('author');
         $comment->text = request('text');
         $comment->article()->associate($comment->article_id);
@@ -109,6 +128,7 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::findOrFail($id);
+        Gate::authorize('update-comment', $comment);
         $comment->delete();
         return redirect()->route('show', ['articleId' => $comment->article_id]);
     }

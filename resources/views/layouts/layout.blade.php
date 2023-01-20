@@ -33,9 +33,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+        @can('create')
         <li class="nav-item">
             <a class="nav-link" href="/article/create">Создать статью</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/comment">Новые комментарии</a>
+        </li>
+        @endcan
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/about">О нас</a>
         </li>
