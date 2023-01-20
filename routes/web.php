@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 
 
@@ -16,7 +17,8 @@ Route::group(['prefix'=>'/article', 'middleware'=>'auth:sanctum'], function(){
 });
 
 Route::get('/', [MainController::class, 'index']);
-Route::post('/articles/{articleId}/comments', [MainController::class, 'storeComment']);
+
+Route::resource('comment', CommentController::class);
 
 
 Route::group(['prefix'=>'/auth'], function(){

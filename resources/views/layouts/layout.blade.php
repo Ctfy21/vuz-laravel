@@ -33,17 +33,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="nav-link" href="/article/create">Создать новость</a>
+        <li class="nav-item">
+            <a class="nav-link" href="/article/create">Создать статью</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/about">О нас</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/contact">Контакты</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/article/create">Создать статью</a>
         </li>
       </ul>
     </div>
